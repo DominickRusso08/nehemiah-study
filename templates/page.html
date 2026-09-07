@@ -1,0 +1,49 @@
+<title>__TITLE__ &mdash; __CHURCH__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>__CSS__</style>
+
+<nav id="sidebar">
+  <div class="sb-head">
+    <img class="sb-logo" src="__LOGO__" alt="Life Church" />
+    <div class="sb-series">__TITLE__</div>
+    <div class="sb-book">__BOOK__ &middot; Pastoral Commentary</div>
+  </div>
+  <div class="sermon-list">__SIDEBAR__</div>
+</nav>
+<div id="overlay" onclick="closeSB()"></div>
+
+<main id="main">
+  <div id="topbar">
+    <button id="menu-btn" onclick="toggleSB()">&#9776;</button>
+    <div class="tb-title" id="tb-title">__SHORT__</div>
+    <div class="tb-passage" id="tb-passage">__BOOK__</div>
+  </div>
+  <div id="content">
+
+    <div id="welcome">
+      <img class="w-logo" src="__LOGO__" alt="Life Church" />
+      <h1 class="w-title">__TITLE__</h1>
+      <p class="w-sub">__CHURCH__ &mdash; __PASTOR__<br>
+      Scripture paired verse-by-verse with your pastor&rsquo;s teaching &mdash; scroll continuously
+      through the series, or jump to any sermon from the sidebar.</p>
+      <div class="w-stats">
+        <div class="stat"><span class="stat-n">__N_SERM__</span><span class="stat-l">__L_SERM__</span></div>
+        <div class="stat"><span class="stat-n">__N_CHAP__</span><span class="stat-l">__L_CHAP__</span></div>
+        <div class="stat"><span class="stat-n">__N_VERS__</span><span class="stat-l">Verses</span></div>
+      </div>
+      <button class="w-cta" onclick="startReading()">Begin Reading &rarr;</button>
+      <p class="w-note">Scroll continuously &middot; jump via sidebar &middot; click &ldquo;Deep Dive&rdquo; for full detail &middot; &#9654; opens sermon on YouTube</p>
+    </div>
+
+    <div id="all-sermons" style="display:none">__SERMONS__
+      <div class="commentary-footer">
+        Scripture quotations are from the ESV&reg; Bible, copyright &copy; 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.<br>
+        Commentary summarizes sermons preached at __CHURCH__ by __PASTOR__.
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>__JS__</script>
