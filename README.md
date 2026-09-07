@@ -56,8 +56,9 @@ Notes:
   (useful for context verses that were read but not preached).
 - `verses[].text` is authoritative scripture and is emitted verbatim.
   It is never rewritten, paraphrased, or reformatted by the build.
-- Use HTML entities (`&ndash;`, `&rsquo;`) rather than raw characters for
-  consistency with the existing content.
+- `passage` and `short` use HTML entities (`&ndash;`) since they are short display
+  labels. Prose fields (`note`, `summary`, `deep`) use ordinary UTF-8 characters
+  (em dashes, curly quotes) — the build writes UTF-8, so both work.
 
 ## Scripture
 
