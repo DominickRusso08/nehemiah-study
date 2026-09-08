@@ -5,6 +5,7 @@
 
 <nav id="sidebar">
   <div class="sb-head">
+    <button id="sb-collapse" onclick="toggleCollapse()" title="Collapse sidebar" aria-label="Collapse sidebar">&#10094;</button>
     <img class="sb-logo" src="__LOGO__" alt="Life Church" />
     <div class="sb-series">__TITLE__</div>
     <div class="sb-book">__BOOK__ &middot; Pastoral Commentary</div>
@@ -15,6 +16,7 @@
 
 <main id="main">
   <div id="topbar">
+    <button id="sb-expand" onclick="toggleCollapse()" title="Show sidebar" aria-label="Show sidebar">&#10095;</button>
     <button id="menu-btn" onclick="toggleSB()">&#9776;</button>
     <div class="tb-title" id="tb-title">__SHORT__</div>
     <div class="tb-passage" id="tb-passage">__BOOK__</div>

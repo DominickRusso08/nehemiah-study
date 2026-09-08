@@ -79,6 +79,7 @@ def sermon_sections():
           '<div class="sd-title">%s</div>'
           '<div class="sd-meta">%s &middot; %s</div>'
           '<div class="sd-context"><strong>Pastor&rsquo;s Note:</strong> %s</div>'
+          '<button class="note-toggle" onclick="toggleNote(this)">Show more</button>'
           '</div></div>'
           '<div class="commentary-area">'
           '<div class="col-headers"><div class="col-hdr">Scripture (ESV)</div>'

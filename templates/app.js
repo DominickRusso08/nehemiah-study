@@ -21,6 +21,26 @@ function toggleDD(id) {
   body.classList.toggle('show');
   btn.classList.toggle('open');
 }
+function toggleNote(btn) {
+  var note = btn.previousElementSibling;
+  var open = note.classList.toggle('expanded');
+  btn.textContent = open ? 'Show less' : 'Show more';
+}
+
+function toggleCollapse() {
+  var collapsed = document.body.classList.toggle('sb-collapsed');
+  var btn = document.getElementById('sb-collapse');
+  if (btn) btn.title = collapsed ? 'Show sidebar' : 'Collapse sidebar';
+  try { localStorage.setItem('nehSidebarCollapsed', collapsed ? '1' : '0'); } catch (e) {}
+}
+
+// restore the reader's last sidebar state (storage can throw in private mode)
+try {
+  if (localStorage.getItem('nehSidebarCollapsed') === '1') {
+    document.body.classList.add('sb-collapsed');
+  }
+} catch (e) {}
+
 function toggleSB() {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('overlay').classList.toggle('show');
