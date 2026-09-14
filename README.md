@@ -52,8 +52,15 @@ Pages redeploys in under a minute.
 
 Notes:
 - `sections` is optional; keys are verse numbers where an ESV heading appears.
-- A verse with no `summary` renders greyed out via `.verse-row.context`
-  (useful for context verses that were read but not preached).
+- `youtube` and `note` are optional. Omit both to post a passage's scripture
+  ahead of its sermon; add `pending` with a short line explaining that the
+  commentary is still to come, and it shows in place of the Pastor's Note.
+- Verse states: a verse with a `summary` renders as `.verse-row.preached`
+  (cream tint). A verse with `"context": true` renders greyed via
+  `.verse-row.context`, for background verses read but not preached. A verse
+  with neither renders as a plain, fully readable row.
+- The welcome "Sermons" count only includes sermons that actually have
+  commentary, so posting scripture early does not inflate it.
 - `verses[].text` is authoritative scripture and is emitted verbatim.
   It is never rewritten, paraphrased, or reformatted by the build.
 - `passage` and `short` use HTML entities (`&ndash;`) since they are short display

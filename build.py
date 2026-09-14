@@ -29,7 +29,11 @@ def verse_rows(sermon):
         if heading:
             out.append('<div class="section-divider"><div class="sd-cell">%s</div>'
                        '<div class="sd-cell"></div></div>' % heading)
-        state = 'preached' if v.get('summary') else 'context'
+        # preached = has commentary; context = explicitly de-emphasised background
+        # verse; otherwise a plain readable row (scripture posted ahead of its sermon)
+        if v.get('context'):   state = 'verse-row context'
+        elif v.get('summary'): state = 'verse-row preached'
+        else:                  state = 'verse-row'
         ddid  = 'dd-%s-%d' % (sermon['id'], v['n'])
         com = ''
         if v.get('summary'):
@@ -39,7 +43,7 @@ def verse_rows(sermon):
                     '<span class="dd-label">Deep Dive</span>'
                     '<span class="dd-arrow">&#9662;</span></button>'
                     '<div class="dd-body" id="%s">%s</div>' % (ddid, ddid, v['deep']))
-        out.append('<div class="verse-row %s"><div class="bible-col">'
+        out.append('<div class="%s"><div class="bible-col">'
                    '<sup class="vnum">%d</sup>%s</div>'
                    '<div class="commentary-col">%s</div></div>'
                    % (state, v['n'], v['text'], com))
@@ -58,10 +62,11 @@ def sidebar():
         items = ''.join(
             '<div class="sermon-item" id="item-%s" onclick="jumpTo(\'%s\')">'
             '<div class="sermon-item-text"><div class="s-passage">%s</div>'
-            '<div class="s-title">%s</div></div>'
-            '<a class="yt-btn" href="%s" target="_blank" rel="noopener" '
-            'onclick="event.stopPropagation()" title="Watch on YouTube">%s</a></div>'
-            % (s['id'], s['id'], s['short'], s['title'], s['youtube'], YTSVG)
+            '<div class="s-title">%s</div></div>%s</div>'
+            % (s['id'], s['id'], s['short'], s['title'],
+               ('<a class="yt-btn" href="%s" target="_blank" rel="noopener" '
+                'onclick="event.stopPropagation()" title="Watch on YouTube">%s</a>'
+                % (s['youtube'], YTSVG)) if s.get('youtube') else '')
             for s in groups[ch])
         out.append('<div class="chapter-group"><div class="chapter-label">Chapter %d</div>%s</div>'
                    % (ch, items))
@@ -71,26 +76,36 @@ def sidebar():
 def sermon_sections():
     out = []
     for s in SERMONS:
+        yt_bar = ('<div class="sd-yt-bar"><a class="sd-yt-link" href="%s" target="_blank" '
+                  'rel="noopener">%s Watch Sermon on YouTube</a></div>'
+                  % (s['youtube'], YTSVG)) if s.get('youtube') else ''
+        if s.get('note'):
+            note = ('<div class="sd-context"><strong>Pastor&rsquo;s Note:</strong> %s</div>'
+                    '<button class="note-toggle" onclick="toggleNote(this)">Show more</button>'
+                    % s['note'])
+        elif s.get('pending'):
+            note = '<div class="sd-pending">%s</div>' % s['pending']
+        else:
+            note = ''
         out.append(
-          '<div class="sermon-divider" id="sermon-%s" data-sermon="%s">'
-          '<div class="sd-yt-bar"><a class="sd-yt-link" href="%s" target="_blank" rel="noopener">%s Watch Sermon on YouTube</a></div>'
+          '<div class="sermon-divider" id="sermon-%s" data-sermon="%s">%s'
           '<div class="sd-hero-inner">'
           '<div class="sd-passage">%s</div>'
           '<div class="sd-title">%s</div>'
           '<div class="sd-meta">%s &middot; %s</div>'
-          '<div class="sd-context"><strong>Pastor&rsquo;s Note:</strong> %s</div>'
-          '<button class="note-toggle" onclick="toggleNote(this)">Show more</button>'
+          '%s'
           '</div></div>'
           '<div class="commentary-area">'
           '<div class="col-headers"><div class="col-hdr">Scripture (ESV)</div>'
           '<div class="col-hdr">Pastoral Commentary</div></div>%s</div>'
-          % (s['id'], s['id'], s['youtube'], YTSVG, s['passage'], s['title'],
-             S['church'], S['short'], s['note'], verse_rows(s)))
+          % (s['id'], s['id'], yt_bar, s['passage'], s['title'],
+             S['church'], S['short'], note, verse_rows(s)))
     return ''.join(out)
 
 
 def main():
-    n_serm = len(SERMONS)
+    # a sermon counts once it has commentary; scripture may be posted ahead of it
+    n_serm = sum(1 for s in SERMONS if any(v.get('summary') for v in s['verses']))
     n_chap = len({s['chapter'] for s in SERMONS})
     n_vers = sum(len(s['verses']) for s in SERMONS)
     ids    = ','.join('"%s"' % s['id'] for s in SERMONS)

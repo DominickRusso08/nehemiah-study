@@ -81,6 +81,7 @@ body.sb-collapsed #sb-expand { display: block; }
 .sd-context strong { color: var(--gold); font-weight: 600; }
 .note-toggle { display: none; margin-top: 8px; background: none; border: 1px solid rgba(184,151,58,.5); color: var(--gold); font-family: 'Source Sans 3', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 7px 13px; border-radius: 2px; cursor: pointer; }
 .note-toggle:hover { background: rgba(184,151,58,.15); }
+.sd-pending { background: rgba(255,255,255,.05); border-left: 3px solid rgba(184,151,58,.45); padding: 12px 15px; margin-top: 4px; font-size: 13.5px; font-style: italic; color: rgba(255,255,255,.6); line-height: 1.65; border-radius: 0 2px 2px 0; }
 
 /* TABLE */
 .commentary-area { width: 100%; }
