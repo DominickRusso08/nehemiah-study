@@ -19,6 +19,9 @@ DATA = json.load(open(os.path.join(ROOT, 'content/sermons.json'), encoding='utf-
 S       = DATA['series']
 SERMONS = DATA['sermons']
 YTSVG   = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'
+# microphone, to distinguish the discussion podcast from the sermon itself
+PODSVG  = ('<svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>'
+           '<path d="M17 11a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11h-2z"/></svg>')
 
 
 def verse_rows(sermon):
@@ -79,6 +82,12 @@ def sermon_sections():
         yt_bar = ('<div class="sd-yt-bar"><a class="sd-yt-link" href="%s" target="_blank" '
                   'rel="noopener">%s Watch Sermon on YouTube</a></div>'
                   % (s['youtube'], YTSVG)) if s.get('youtube') else ''
+        # optional follow-up podcast where the pastors discuss the sermon further
+        pod_bar = ('<div class="sd-pod-bar"><a class="sd-pod-link" href="%s" target="_blank" '
+                   'rel="noopener">%s %s</a></div>'
+                   % (s['podcast'], PODSVG,
+                      s.get('podcast_label', 'Listen to the Sermon Podcast'))
+                   ) if s.get('podcast') else ''
         if s.get('note'):
             note = ('<div class="sd-context"><strong>Pastor&rsquo;s Note:</strong> %s</div>'
                     '<button class="note-toggle" onclick="toggleNote(this)">Show more</button>'
@@ -88,7 +97,7 @@ def sermon_sections():
         else:
             note = ''
         out.append(
-          '<div class="sermon-divider" id="sermon-%s" data-sermon="%s">%s'
+          '<div class="sermon-divider" id="sermon-%s" data-sermon="%s">%s%s'
           '<div class="sd-hero-inner">'
           '<div class="sd-passage">%s</div>'
           '<div class="sd-title">%s</div>'
@@ -98,7 +107,7 @@ def sermon_sections():
           '<div class="commentary-area">'
           '<div class="col-headers"><div class="col-hdr">Scripture (ESV)</div>'
           '<div class="col-hdr">Pastoral Commentary</div></div>%s</div>'
-          % (s['id'], s['id'], yt_bar, s['passage'], s['title'],
+          % (s['id'], s['id'], yt_bar, pod_bar, s['passage'], s['title'],
              S['church'], S['short'], note, verse_rows(s)))
     return ''.join(out)
 

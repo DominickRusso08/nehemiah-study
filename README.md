@@ -37,6 +37,8 @@ Pages redeploys in under a minute.
   "short": "Neh 2:1&ndash;10",
   "title": "Sermon Title",
   "youtube": "https://youtu.be/...",
+  "podcast": "https://youtu.be/...",
+  "podcast_label": "Sermon Podcast &mdash; Deeper Discussion",
   "note": "Pastor's Note — what the sermon was about overall.",
   "sections": { "1": "ESV section heading shown above verse 1" },
   "verses": [
@@ -52,6 +54,9 @@ Pages redeploys in under a minute.
 
 Notes:
 - `sections` is optional; keys are verse numbers where an ESV heading appears.
+- `podcast` is optional: a second link bar rendered directly below the sermon
+  bar, for the follow-up podcast where the pastors discuss the sermon further.
+  `podcast_label` overrides its caption (default "Listen to the Sermon Podcast").
 - `youtube` and `note` are optional. Omit both to post a passage's scripture
   ahead of its sermon; add `pending` with a short line explaining that the
   commentary is still to come, and it shows in place of the Pastor's Note.
