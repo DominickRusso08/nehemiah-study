@@ -14,7 +14,6 @@ content/sermons.json   series info + one entry per sermon   <- the only file edi
 templates/page.html    page shell with __PLACEHOLDERS__
 templates/style.css    stylesheet
 templates/app.js       sidebar nav, deep-dive toggles, scroll spy
-templates/logo.txt     Life Church logo as a data URI
 build.py               renders index.html from the above
 index.html             generated output — GitHub Pages serves this
 ```

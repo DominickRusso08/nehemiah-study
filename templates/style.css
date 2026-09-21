@@ -23,8 +23,7 @@ body.sb-collapsed #sidebar { margin-left: calc(-1 * var(--sw)); }
 #sb-expand { display: none; background: none; border: none; cursor: pointer; color: var(--navy); font-size: 17px; padding: 6px 9px; flex-shrink: 0; border-radius: 4px; transition: background .15s; }
 #sb-expand:hover { background: rgba(27,42,74,.08); }
 body.sb-collapsed #sb-expand { display: block; }
-.sb-head { position: relative; padding: 18px 44px 14px 18px; border-bottom: 1px solid rgba(255,255,255,.1); flex-shrink: 0; }
-.sb-logo { display: block; width: 140px; margin-bottom: 12px; opacity: .92; border-radius: 4px; padding: 6px 8px; background: rgba(255,255,255,.08); }
+.sb-head { position: relative; padding: 24px 44px 16px 18px; border-bottom: 1px solid rgba(255,255,255,.1); flex-shrink: 0; }
 .sb-series { font-family: 'EB Garamond', serif; font-size: 17px; font-style: italic; color: var(--gold); line-height: 1.3; margin-bottom: 3px; }
 .sb-book { font-size: 10.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); }
 .sermon-list { flex: 1; overflow-y: auto; padding: 6px 0; }
@@ -180,10 +179,4 @@ body.sb-collapsed #sb-expand { display: block; }
 #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 99; }
 #overlay.show { display: block; }
 
-/* WELCOME LOGO */
-.w-logo { width: 200px; margin: 0 auto 20px; display: block; }
 
-/* MOBILE: smaller welcome logo */
-@media (max-width: 768px) {
-  .w-logo { width: 160px; }
-}

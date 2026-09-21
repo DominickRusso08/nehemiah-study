@@ -13,7 +13,6 @@ import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CSS  = open(os.path.join(ROOT, 'templates/style.css'), encoding='utf-8').read()
-LOGO = open(os.path.join(ROOT, 'templates/logo.txt'), encoding='utf-8').read().strip()
 DATA = json.load(open(os.path.join(ROOT, 'content/sermons.json'), encoding='utf-8'))
 
 S       = DATA['series']
@@ -125,7 +124,6 @@ def main():
     html = open(os.path.join(ROOT, 'templates/page.html'), encoding='utf-8').read()
     html = (html
         .replace('__CSS__', CSS)
-        .replace('__LOGO__', LOGO)
         .replace('__SIDEBAR__', sidebar())
         .replace('__SERMONS__', sermon_sections())
         .replace('__JS__', js)
