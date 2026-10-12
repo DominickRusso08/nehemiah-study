@@ -27,7 +27,14 @@ def verse_rows(sermon):
     """Render one sermon's verse table. Scripture is emitted exactly as stored."""
     out, sections = [], sermon.get('sections', {})
     for v in sermon['verses']:
-        heading = sections.get(str(v['n']))
+        # a verse may carry its own 'ch' when a sermon spans a chapter boundary;
+        # ids and the displayed number are then qualified so they stay unique
+        ch  = v.get('ch')
+        vid = '%s-%s' % (ch, v['n']) if ch else str(v['n'])
+        vnum = '%s:%s' % (ch, v['n']) if ch else str(v['n'])
+        heading = v.get('section')
+        if heading is None and not ch:
+            heading = sections.get(str(v['n']))
         if heading:
             out.append('<div class="section-divider"><div class="sd-cell">%s</div>'
                        '<div class="sd-cell"></div></div>' % heading)
@@ -36,7 +43,7 @@ def verse_rows(sermon):
         if v.get('context'):   state = 'verse-row context'
         elif v.get('summary'): state = 'verse-row preached'
         else:                  state = 'verse-row'
-        ddid  = 'dd-%s-%d' % (sermon['id'], v['n'])
+        ddid  = 'dd-%s-%s' % (sermon['id'], vid)
         com = ''
         if v.get('summary'):
             com += '<div class="c-summary">%s</div>' % v['summary']
@@ -46,9 +53,9 @@ def verse_rows(sermon):
                     '<span class="dd-arrow">&#9662;</span></button>'
                     '<div class="dd-body" id="%s">%s</div>' % (ddid, ddid, v['deep']))
         out.append('<div class="%s"><div class="bible-col">'
-                   '<sup class="vnum">%d</sup>%s</div>'
+                   '<sup class="vnum">%s</sup>%s</div>'
                    '<div class="commentary-col">%s</div></div>'
-                   % (state, v['n'], v['text'], com))
+                   % (state, vnum, v['text'], com))
     return ''.join(out)
 
 
